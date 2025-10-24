@@ -166,3 +166,8 @@ class Persona<T> {
   const Persona(this.something);
   final T something;
 }
+
+final json = {
+  "chiave": 42,
+  "pippo": {"pluto": 2},
+};
