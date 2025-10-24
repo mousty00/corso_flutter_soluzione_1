@@ -31,12 +31,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,22 +39,71 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Row(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          spacing: 40,
           children: [
             const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 16),
+              child: Text(
+                '$_counter',
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              spacing: 30,
+              children: [
+                ElevatedButton(
+                  onPressed: _incrementCounter,
+                  child: Text("increment"),
+                ),
+                ElevatedButton(
+                  onPressed: _decrementCounter,
+                  child: Text("decrement"),
+                ),
+                ElevatedButton(onPressed: _resetCounter, child: Text("reset")),
+                ElevatedButton(
+                  onPressed: _doubleCounter,
+                  child: Text("double"),
+                ),
+                ElevatedButton(onPressed: _halveCounter, child: Text("halve")),
+              ],
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
     );
+  }
+
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
+  }
+
+  void _decrementCounter() {
+    setState(() {
+      _counter--;
+    });
+  }
+
+  void _resetCounter() {
+    setState(() {
+      _counter = 0;
+    });
+  }
+
+  void _doubleCounter() {
+    setState(() {
+      _counter *= 2;
+    });
+  }
+
+  void _halveCounter() {
+    setState(() {
+      _counter = _counter ~/ 2;
+    });
   }
 }
