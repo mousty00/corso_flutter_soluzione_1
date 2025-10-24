@@ -63,7 +63,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: [
                   ElevatedButton(
                     onPressed: _incrementCounter,
-                    child: Text("increment"),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      iconColor: Colors.white,
+                      foregroundColor: Colors.white,
+                    ),
+                    child: Expanded(
+                      child: Row(
+                        spacing: 16,
+                        children: [Icon(Icons.add), Text("increment")],
+                      ),
+                    ),
                   ),
                   ElevatedButton(
                     onPressed: _decrementCounter,
@@ -71,7 +81,17 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   ElevatedButton(
                     onPressed: _resetCounter,
-                    child: Text("reset"),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red,
+                      iconColor: Colors.white,
+                      foregroundColor: Colors.white,
+                    ),
+                    child: Expanded(
+                      child: Row(
+                        spacing: 16,
+                        children: [Icon(Icons.close), Text("decrement")],
+                      ),
+                    ),
                   ),
                   ElevatedButton(
                     onPressed: _doubleCounter,
