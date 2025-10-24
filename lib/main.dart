@@ -30,51 +30,112 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _greetController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.sizeOf(context);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          spacing: 40,
-          children: [
-            const Text('You have pushed the button this many times:'),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 16),
-              child: Text(
-                '$_counter',
-                style: Theme.of(context).textTheme.headlineMedium,
+        child: ConstrainedBox(
+          constraints: BoxConstraints.tightFor(width: size.width * 0.5),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            spacing: 40,
+            children: [
+              const Text('You have pushed the button this many times:'),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 16),
+                child: Text(
+                  '$_counter',
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              spacing: 30,
-              children: [
-                ElevatedButton(
-                  onPressed: _incrementCounter,
-                  child: Text("increment"),
-                ),
-                ElevatedButton(
-                  onPressed: _decrementCounter,
-                  child: Text("decrement"),
-                ),
-                ElevatedButton(onPressed: _resetCounter, child: Text("reset")),
-                ElevatedButton(
-                  onPressed: _doubleCounter,
-                  child: Text("double"),
-                ),
-                ElevatedButton(onPressed: _halveCounter, child: Text("halve")),
-              ],
-            ),
-          ],
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                spacing: 30,
+                children: [
+                  ElevatedButton(
+                    onPressed: _incrementCounter,
+                    child: Text("increment"),
+                  ),
+                  ElevatedButton(
+                    onPressed: _decrementCounter,
+                    child: Text("decrement"),
+                  ),
+                  ElevatedButton(
+                    onPressed: _resetCounter,
+                    child: Text("reset"),
+                  ),
+                  ElevatedButton(
+                    onPressed: _doubleCounter,
+                    child: Text("double"),
+                  ),
+                  ElevatedButton(
+                    onPressed: _halveCounter,
+                    child: Text("halve"),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                spacing: 16,
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _greetController,
+                      decoration: InputDecoration(
+                        suffix: IconButton(
+                          onPressed: _clearGreet,
+                          icon: Icon(Icons.clear),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: TextField(
+                      controller: _nameController,
+                      decoration: InputDecoration(
+                        suffix: IconButton(
+                          onPressed: _clearName,
+                          icon: Icon(Icons.clear),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+
+              ValueListenableBuilder(
+                valueListenable: _greetController,
+                builder: (context, greet, child) {
+                  return ValueListenableBuilder(
+                    valueListenable: _nameController,
+                    builder: (context, name, child) {
+                      return Text("${greet.text} ${name.text} !");
+                    },
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  void _clearGreet() {
+    _greetController.clear();
+  }
+
+  void _clearName() {
+    _nameController.clear();
   }
 
   void _incrementCounter() {
