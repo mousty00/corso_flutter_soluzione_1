@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:color_changer/advanced_greeter.dart';
+import 'package:color_changer/login_form.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -99,7 +99,7 @@ class _MyAppState extends State<MyApp> {
                 SizedBox(height: 40),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 40),
-                  child: AdvancedGreeter(),
+                  child: LoginForm(),
                 ),
               ],
             ),
