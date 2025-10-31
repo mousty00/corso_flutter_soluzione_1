@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -8,56 +9,47 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-  final formKey = GlobalKey<FormState>();
-  late final TextEditingController usernameController;
-  late final TextEditingController passwordController;
+  late final FormGroup form;
   bool obscurePassword = true;
   Future<void>? loginFuture;
 
   @override
   void initState() {
     super.initState();
-    usernameController = TextEditingController();
-    passwordController = TextEditingController();
+    form = FormGroup({
+      "username": FormControl<String>(
+        validators: [Validators.required, Validators.email],
+      ),
+      "password": FormControl<String>(
+        validators: [Validators.required, Validators.minLength(4)],
+      ),
+    });
   }
 
   @override
   void dispose() {
-    passwordController.dispose();
-    usernameController.dispose();
+    form.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: formKey,
+    return ReactiveForm(
+      formGroup: form,
       child: Column(
         spacing: 4,
         children: [
-          // greet field
-          TextFormField(
-            controller: usernameController,
+          ReactiveTextField(
+            formControlName: "username",
             textInputAction: TextInputAction.next,
             decoration: InputDecoration(
               labelText: "Username",
               hintText: "Enter your username here!",
             ),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return "field cannot be empty";
-              }
-              if (value.length < 8) {
-                return "an username must be at least 8 characters long";
-              }
-
-              return null;
-            },
           ),
           SizedBox(height: 8),
-          // name field
-          TextFormField(
-            controller: passwordController,
+          ReactiveTextField(
+            formControlName: "password",
             obscureText: obscurePassword,
             obscuringCharacter: "-",
             decoration: InputDecoration(
@@ -75,14 +67,7 @@ class _LoginFormState extends State<LoginForm> {
               ),
             ),
             textInputAction: TextInputAction.done,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return "password cannot be empty";
-              }
-
-              return null;
-            },
-            onFieldSubmitted: (value) {
+            onSubmitted: (value) {
               _login();
             },
           ),
@@ -111,16 +96,17 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   void _login() {
-    final validate = formKey.currentState?.validate();
-    final isValid = validate ?? false;
-    if (isValid) {
-      final username = usernameController.text;
-      final password = passwordController.text;
+    if (form.valid) {
+      final value = form.value;
 
       setState(() {
         loginFuture = Future.delayed(Duration(milliseconds: 3500), () {
           // TODO: POST al server con username e password
           print("login effettuato!");
+          final username = value["username"] as String;
+          final password = value["password"] as String;
+          print("username è: $username");
+          print("password è: $password");
         });
       });
     }
