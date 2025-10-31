@@ -1,6 +1,6 @@
 {
-    "name": "corso_flutter_soluzione_1",
-    "short_name": "corso_flutter_soluzione_1",
+    "name": "color_changer",
+    "short_name": "color_changer",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
