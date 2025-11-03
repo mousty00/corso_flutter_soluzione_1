@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:reactive_forms/reactive_forms.dart';
+import "package:flutter/material.dart";
+import "package:reactive_forms/reactive_forms.dart";
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -18,10 +18,16 @@ class _LoginFormState extends State<LoginForm> {
     super.initState();
     form = FormGroup({
       "username": FormControl<String>(
-        validators: [Validators.required, Validators.email],
+        validators: [
+          Validators.required,
+          Validators.email,
+        ],
       ),
       "password": FormControl<String>(
-        validators: [Validators.required, Validators.minLength(4)],
+        validators: [
+          Validators.required,
+          Validators.minLength(4),
+        ],
       ),
     });
   }
@@ -39,16 +45,16 @@ class _LoginFormState extends State<LoginForm> {
       child: Column(
         spacing: 4,
         children: [
-          ReactiveTextField(
+          ReactiveTextField<String>(
             formControlName: "username",
             textInputAction: TextInputAction.next,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               labelText: "Username",
               hintText: "Enter your username here!",
             ),
           ),
-          SizedBox(height: 8),
-          ReactiveTextField(
+          const SizedBox(height: 8),
+          ReactiveTextField<String>(
             formControlName: "password",
             obscureText: obscurePassword,
             obscuringCharacter: "-",
@@ -71,22 +77,21 @@ class _LoginFormState extends State<LoginForm> {
               _login();
             },
           ),
-          SizedBox(height: 32),
+          const SizedBox(height: 32),
           FutureBuilder(
             future: loginFuture,
             builder: (context, snapshot) {
-              final isLoading =
-                  snapshot.connectionState == ConnectionState.waiting;
+              final isLoading = snapshot.connectionState == ConnectionState.waiting;
 
               return TextButton.icon(
                 onPressed: isLoading ? null : _login,
                 icon: isLoading
-                    ? SizedBox.square(
+                    ? const SizedBox.square(
                         dimension: 16,
                         child: CircularProgressIndicator(strokeWidth: 1.75),
                       )
-                    : Icon(Icons.login),
-                label: Text("login"),
+                    : const Icon(Icons.login),
+                label: const Text("login"),
               );
             },
           ),
@@ -100,11 +105,11 @@ class _LoginFormState extends State<LoginForm> {
       final value = form.value;
 
       setState(() {
-        loginFuture = Future.delayed(Duration(milliseconds: 3500), () {
+        loginFuture = Future.delayed(const Duration(milliseconds: 3500), () {
           // TODO: POST al server con username e password
           print("login effettuato!");
-          final username = value["username"] as String;
-          final password = value["password"] as String;
+          final username = value["username"]! as String;
+          final password = value["password"]! as String;
           print("username è: $username");
           print("password è: $password");
         });

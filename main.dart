@@ -1,7 +1,6 @@
-import 'dart:math';
-import 'dart:ui';
+import "dart:math";
 
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 void main() {
   runApp(const MyApp());
@@ -21,7 +20,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Color changer',
+      title: "Color changer",
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
@@ -36,7 +35,7 @@ class _MyAppState extends State<MyApp> {
           return Scaffold(
             appBar: AppBar(
               backgroundColor: theme.colorScheme.inversePrimary,
-              title: Text("Color changer"),
+              title: const Text("Color changer"),
               actions: [
                 Switch(
                   value: isDark,
@@ -62,11 +61,11 @@ class _MyAppState extends State<MyApp> {
                         color = randomColor;
                       });
                     },
-                    icon: Icon(Icons.shuffle),
-                    label: Text("randomize me"),
+                    icon: const Icon(Icons.shuffle),
+                    label: const Text("randomize me"),
                   ),
                 ),
-                SizedBox(height: 40),
+                const SizedBox(height: 40),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [

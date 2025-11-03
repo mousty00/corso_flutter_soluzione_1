@@ -1,6 +1,6 @@
-import 'package:color_changer/task.dart';
-import 'package:flutter/material.dart';
-import 'package:reactive_forms/reactive_forms.dart';
+import "package:color_changer/task.dart";
+import "package:flutter/material.dart";
+import "package:reactive_forms/reactive_forms.dart";
 
 class TodoList extends StatefulWidget {
   const TodoList({super.key});
@@ -26,7 +26,10 @@ class _TodoListState extends State<TodoList> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text("Todo List", style: theme.textTheme.headlineMedium),
-            IconButton(onPressed: _showAddTaskForm, icon: Icon(Icons.add)),
+            IconButton(
+              onPressed: _showAddTaskForm,
+              icon: const Icon(Icons.add),
+            ),
           ],
         ),
         Expanded(
@@ -56,7 +59,7 @@ class _TodoListState extends State<TodoList> {
     final result = await showDialog<Task>(
       context: context,
       builder: (context) {
-        return TodoForm();
+        return const TodoForm();
       },
     );
     if (result == null) return;
@@ -82,9 +85,16 @@ class _TodoFormState extends State<TodoForm> {
     super.initState();
     form = FormGroup({
       "title": FormControl<String>(
-        validators: [Validators.required, Validators.minLength(3)],
+        validators: [
+          Validators.required,
+          Validators.minLength(3),
+        ],
       ),
-      "description": FormControl<String>(validators: [Validators.required]),
+      "description": FormControl<String>(
+        validators: [
+          Validators.required,
+        ],
+      ),
     });
   }
 
@@ -98,23 +108,26 @@ class _TodoFormState extends State<TodoForm> {
   Widget build(BuildContext context) {
     return Dialog(
       child: Padding(
-        padding: EdgeInsetsGeometry.symmetric(horizontal: 40, vertical: 20),
+        padding: const EdgeInsetsGeometry.symmetric(
+          horizontal: 40,
+          vertical: 20,
+        ),
         child: ReactiveForm(
           formGroup: form,
           child: Column(
             children: [
-              ReactiveTextField(
+              ReactiveTextField<String>(
                 formControlName: "title",
                 textInputAction: TextInputAction.next,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: "Title",
                   hintText: "Enter task title...",
                 ),
               ),
-              ReactiveTextField(
+              ReactiveTextField<String>(
                 formControlName: "description",
                 textInputAction: TextInputAction.done,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: "Description",
                   hintText: "Enter task description...",
                 ),
@@ -122,8 +135,11 @@ class _TodoFormState extends State<TodoForm> {
                   save();
                 },
               ),
-              SizedBox(height: 20),
-              ElevatedButton(onPressed: save, child: Text("Add Task")),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: save,
+                child: const Text("Add Task"),
+              ),
             ],
           ),
         ),
