@@ -1,4 +1,4 @@
-import "package:color_changer/task.dart";
+import "package:color_changer/models/task.dart";
 import "package:flutter/material.dart";
 import "package:reactive_forms/reactive_forms.dart";
 
@@ -43,10 +43,25 @@ class _TodoListState extends State<TodoList> {
                   leading: Checkbox(
                     value: task.isDone,
                     onChanged: (value) {
-                      setState(() {
-                        tasks[i].isDone = value ?? false;
-                      });
+                      _toggle(i, to: value);
                     },
+                  ),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          _changeTodo(task);
+                        },
+                        icon: const Icon(Icons.edit),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          _deleteTodo(i);
+                        },
+                        icon: const Icon(Icons.delete),
+                      ),
+                    ],
                   ),
                 ),
             ],
@@ -56,11 +71,20 @@ class _TodoListState extends State<TodoList> {
     );
   }
 
+  void _deleteTodo(int i) {
+    setState(() {
+      tasks.removeAt(i);
+    });
+  }
+
   Future<void> _showAddTaskForm() async {
     final result = await showDialog<Task>(
       context: context,
       builder: (context) {
-        return const TodoForm();
+        return const TodoForm(
+          label: "add task",
+          task: null,
+        );
       },
     );
     if (result == null) return;
@@ -69,10 +93,41 @@ class _TodoListState extends State<TodoList> {
       tasks.add(result);
     });
   }
+
+  void _toggle(int i, {bool? to}) {
+    setState(() {
+      tasks[i].isDone = to ?? false;
+    });
+  }
+
+  Future<void> _changeTodo(Task task) async {
+    final result = await showDialog<Task>(
+      context: context,
+      builder: (context) {
+        return TodoForm(
+          label: "edit!",
+          task: task,
+        );
+      },
+    );
+
+    if (result == null) return;
+
+    setState(() {
+      task.title = result.title;
+      task.description = result.description;
+    });
+  }
 }
 
 class TodoForm extends StatefulWidget {
-  const TodoForm({super.key});
+  const TodoForm({
+    required this.label,
+    required this.task,
+    super.key,
+  });
+  final String label;
+  final Task? task;
 
   @override
   State<TodoForm> createState() => _TodoFormState();
@@ -86,12 +141,14 @@ class _TodoFormState extends State<TodoForm> {
     super.initState();
     form = FormGroup({
       "title": FormControl<String>(
+        value: widget.task?.title,
         validators: [
           Validators.required,
           Validators.minLength(3),
         ],
       ),
       "description": FormControl<String>(
+        value: widget.task?.description,
         validators: [
           Validators.required,
         ],
