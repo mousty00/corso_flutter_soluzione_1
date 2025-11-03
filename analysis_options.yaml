@@ -5,6 +5,7 @@ linter:
     prefer_double_quotes: true
     prefer_single_quotes: false
     public_member_api_docs: false
+    cascade_invocations: false
 
 formatter:
   page_width: 90
