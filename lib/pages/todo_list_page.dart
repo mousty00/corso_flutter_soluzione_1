@@ -6,7 +6,10 @@ class TodoListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
+      backgroundColor: theme.colorScheme.inversePrimary,
       appBar: AppBar(
         title: const Text("Todo List"),
       ),

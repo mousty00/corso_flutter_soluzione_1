@@ -1,20 +1,14 @@
-import "dart:math" as math;
-
+import "package:color_changer/state/theme_controller.dart";
 import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 
-class ColorChangePage extends StatefulWidget {
+class ColorChangePage extends ConsumerWidget {
   const ColorChangePage({super.key});
 
   @override
-  State<ColorChangePage> createState() => _ColorChangePageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final brightness = ref.watch(darkModeProvider);
 
-class _ColorChangePageState extends State<ColorChangePage> {
-  Color color = Colors.deepPurple;
-  bool isDark = false;
-
-  @override
-  Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
     return Scaffold(
@@ -23,11 +17,9 @@ class _ColorChangePageState extends State<ColorChangePage> {
         title: const Text("Color changer"),
         actions: [
           Switch(
-            value: isDark,
+            value: brightness == Brightness.dark,
             onChanged: (value) {
-              setState(() {
-                isDark = value;
-              });
+              ref.read(darkModeProvider.notifier).toggle(isDark: value);
             },
           ),
         ],
@@ -39,12 +31,7 @@ class _ColorChangePageState extends State<ColorChangePage> {
           Center(
             child: OutlinedButton.icon(
               onPressed: () {
-                setState(() {
-                  final random = math.Random();
-                  final randomInt = random.nextInt(0xFFFFFFFF);
-                  final randomColor = Color(randomInt);
-                  color = randomColor;
-                });
+                ref.read(colorProvider.notifier).randomize();
               },
               icon: const Icon(Icons.shuffle),
               label: const Text("randomize me"),
@@ -56,25 +43,19 @@ class _ColorChangePageState extends State<ColorChangePage> {
             children: [
               ElevatedButton(
                 onPressed: () {
-                  setState(() {
-                    color = Colors.red;
-                  });
+                  ref.read(colorProvider.notifier).setToRed();
                 },
                 child: const Text("Red"),
               ),
               ElevatedButton(
                 onPressed: () {
-                  setState(() {
-                    color = Colors.green;
-                  });
+                  ref.read(colorProvider.notifier).setToGreen();
                 },
                 child: const Text("Green"),
               ),
               ElevatedButton(
                 onPressed: () {
-                  setState(() {
-                    color = Colors.blue;
-                  });
+                  ref.read(colorProvider.notifier).setToBlue();
                 },
                 child: const Text("Blue"),
               ),

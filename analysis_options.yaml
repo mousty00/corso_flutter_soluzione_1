@@ -9,3 +9,7 @@ linter:
 formatter:
   page_width: 90
   trailing_commas: preserve 
+
+analyzer:
+  plugins:
+    - custom_lint
