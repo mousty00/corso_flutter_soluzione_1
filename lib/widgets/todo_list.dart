@@ -23,9 +23,10 @@ class _TodoListState extends State<TodoList> {
     return Column(
       children: [
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.end,
+          spacing: 4,
           children: [
-            Text("Todo List", style: theme.textTheme.headlineMedium),
+            Text("Aggiungi todo:", style: theme.textTheme.titleMedium),
             IconButton(
               onPressed: _showAddTaskForm,
               icon: const Icon(Icons.add),
