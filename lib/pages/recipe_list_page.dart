@@ -1,8 +1,8 @@
-import "package:color_changer/widgets/todo_list.dart";
+import "package:color_changer/widgets/recipe_list.dart";
 import "package:flutter/material.dart";
 
-class TodoListPage extends StatelessWidget {
-  const TodoListPage({super.key});
+class RecipeListPage extends StatelessWidget {
+  const RecipeListPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class TodoListPage extends StatelessWidget {
         title: const Text("Todo List"),
         backgroundColor: theme.colorScheme.inversePrimary,
       ),
-      body: const TodoList(),
+      body: const RecipeList(),
     );
   }
 }

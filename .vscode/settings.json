@@ -14,4 +14,7 @@
             "source.organizeImports": "explicit"
         }
     },
+    "files.autoSave": "afterDelay",
+    "dart.flutterHotReloadOnSave": "all",
 }
+
