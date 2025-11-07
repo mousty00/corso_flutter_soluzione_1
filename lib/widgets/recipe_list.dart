@@ -125,13 +125,15 @@ class _RecipeListState extends State<RecipeList> {
     final steps = form["steps"]! as List<String?>;
     final assertSteps = steps.map((v) => v!).toList();
 
-    recipes.add(
-      Recipe(
-        name: form["name"]! as String,
-        ingredients: assertIngredients,
-        steps: assertSteps,
-      ),
-    );
+    setState(() {
+      recipes.add(
+        Recipe(
+          name: form["name"]! as String,
+          ingredients: assertIngredients,
+          steps: assertSteps,
+        ),
+      );
+    });
   }
 }
 
@@ -157,8 +159,18 @@ class _AddRecipeDialogState extends State<AddRecipeDialog> {
           Validators.minLength(2),
         ],
       ),
-      "ingredients": FormArray<String>([]),
-      "steps": FormArray<String>([]),
+      "ingredients": FormArray<String>(
+        [],
+        validators: [
+          Validators.minLength(2),
+        ],
+      ),
+      "steps": FormArray<String>(
+        [],
+        validators: [
+          Validators.minLength(1),
+        ],
+      ),
     });
   }
 
@@ -166,6 +178,14 @@ class _AddRecipeDialogState extends State<AddRecipeDialog> {
   void dispose() {
     form.dispose();
     super.dispose();
+  }
+
+  FormArray<String> get ingredients {
+    return form.control("ingredients") as FormArray<String>;
+  }
+
+  FormArray<String> get steps {
+    return form.control("steps") as FormArray<String>;
   }
 
   @override
@@ -181,15 +201,47 @@ class _AddRecipeDialogState extends State<AddRecipeDialog> {
               decoration: const InputDecoration(icon: Icon(Icons.food_bank_outlined)),
               formControlName: "name",
             ),
-            ElevatedButton.icon(
-              onPressed: _saveRecipe,
-              label: const Text("Save"),
-              icon: const Icon(Icons.save),
+            TextButton(
+              onPressed: _addIngredients,
+              child: const Text("Add ingredient"),
+            ),
+            for (final ingredient in ingredients.controls)
+              ReactiveTextField(
+                formControl: ingredient as FormControl<String>,
+              ),
+            TextButton(
+              onPressed: _addSteps,
+              child: const Text("add Steps"),
+            ),
+            for (final step in steps.controls)
+              ReactiveTextField(
+                formControl: step as FormControl<String>,
+              ),
+            ReactiveFormConsumer(
+              builder: (context, formGroup, child) {
+                return ElevatedButton.icon(
+                  onPressed: formGroup.invalid ? null : _saveRecipe,
+                  label: const Text("Save"),
+                  icon: const Icon(Icons.save),
+                );
+              },
             ),
           ],
         ),
       ),
     );
+  }
+
+  void _addIngredients() {
+    setState(() {
+      ingredients.add(FormControl<String>(validators: [Validators.required]));
+    });
+  }
+
+  void _addSteps() {
+    setState(() {
+      steps.add(FormControl<String>(validators: [Validators.required]));
+    });
   }
 
   void _saveRecipe() {
