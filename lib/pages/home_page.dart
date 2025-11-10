@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
           mainAxisSpacing: 8,
           crossAxisSpacing: 8,
           children: [
-            for (final route in ERoute.routes.routes)
+            for (final route in ERoute.routes)
               RouteButton(path: route.path, label: route.label),
           ],
         ),

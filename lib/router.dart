@@ -1,4 +1,5 @@
 import "package:color_changer/pages/color_changer_page.dart";
+import "package:color_changer/pages/contact_page.dart";
 import "package:color_changer/pages/home_page.dart";
 import "package:color_changer/pages/login_page.dart";
 import "package:color_changer/pages/recipe_list_page.dart";
@@ -36,6 +37,12 @@ final router = GoRouter(
       path: "/recipes",
       builder: (context, state) {
         return const RecipeListPage();
+      },
+    ),
+    GoRoute(
+      path: "/contacts",
+      builder: (context, state) {
+        return const ContactPage();
       },
     ),
   ],
