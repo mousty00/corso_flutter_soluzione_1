@@ -21,14 +21,16 @@ class _TodoListState extends State<TodoList> {
     final theme = Theme.of(context);
 
     return Column(
+      spacing: 4,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           spacing: 4,
           children: [
-            Text("Aggiungi todo:", style: theme.textTheme.titleMedium),
-            IconButton(
+            ElevatedButton.icon(
               onPressed: _showAddTaskForm,
+              label: Text("Add New", style: theme.textTheme.titleMedium),
               icon: const Icon(Icons.add),
             ),
           ],
@@ -167,8 +169,8 @@ class _TodoFormState extends State<TodoForm> {
     return Dialog(
       child: Padding(
         padding: const EdgeInsetsGeometry.symmetric(
-          horizontal: 40,
-          vertical: 20,
+          horizontal: 60,
+          vertical: 60,
         ),
         child: ReactiveForm(
           formGroup: form,
