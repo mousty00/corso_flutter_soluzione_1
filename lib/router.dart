@@ -2,6 +2,7 @@ import "package:color_changer/pages/cart_page.dart";
 import "package:color_changer/pages/color_changer_page.dart";
 import "package:color_changer/pages/contact_page.dart";
 import "package:color_changer/pages/home_page.dart";
+import "package:color_changer/pages/jokes_page.dart";
 import "package:color_changer/pages/login_page.dart";
 import "package:color_changer/pages/products_page.dart";
 import "package:color_changer/pages/recipe_list_page.dart";
@@ -57,6 +58,12 @@ final router = GoRouter(
       path: "/cart",
       builder: (context, state) {
         return const CartPage();
+      },
+    ),
+    GoRoute(
+      path: "/jokes",
+      builder: (context, state) {
+        return const JokesPage();
       },
     ),
   ],
