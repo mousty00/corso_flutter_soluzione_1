@@ -8,11 +8,12 @@ linter:
     cascade_invocations: false
     lines_longer_than_80_chars: false
     
-
 formatter:
   page_width: 90
   trailing_commas: preserve 
 
 analyzer:
+  errors:
+    invalid_annotation_target: ignore
   plugins:
     - custom_lint

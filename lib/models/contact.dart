@@ -16,7 +16,9 @@ class Contact {
 
   String value;
   ContactType type;
+}
 
+extension ContactViewModel on Contact {
   IconData get icon {
     switch (type) {
       case ContactType.email:

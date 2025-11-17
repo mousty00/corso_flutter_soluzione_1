@@ -1,11 +1,13 @@
 import "package:color_changer/models/contact.dart";
-import "package:json_annotation/json_annotation.dart";
+import "package:freezed_annotation/freezed_annotation.dart";
 
+part "person.freezed.dart";
 part "person.g.dart";
 
+@freezed
 @JsonSerializable(createToJson: false)
-class Person {
-  Person({
+class Person with _$Person {
+  const Person({
     required this.firstName,
     required this.lastName,
     this.contacts = const [],
@@ -15,7 +17,10 @@ class Person {
     return _$PersonFromJson(json);
   }
 
-  String firstName;
-  String lastName;
-  List<Contact> contacts;
+  @override
+  final String firstName;
+  @override
+  final String lastName;
+  @override
+  final List<Contact> contacts;
 }
