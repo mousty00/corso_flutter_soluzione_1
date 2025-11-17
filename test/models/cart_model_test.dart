@@ -1,4 +1,4 @@
-import "package:color_changer/models/cart.dart";
+import "package:color_changer/models/cart_model.dart";
 import "package:color_changer/models/product.dart";
 import "package:flutter_test/flutter_test.dart";
 

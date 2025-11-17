@@ -1,5 +1,5 @@
 import "package:collection/collection.dart";
-import "package:color_changer/state/cart_controller.dart";
+import "package:color_changer/state/cart.dart";
 import "package:color_changer/widgets/products_list.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";

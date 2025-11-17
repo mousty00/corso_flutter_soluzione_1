@@ -1,9 +1,9 @@
 import "package:collection/collection.dart";
 import "package:color_changer/models/product.dart";
 
-typedef Cart = Map<Product, int>;
+typedef CartModel = Map<Product, int>;
 
-extension CartViewModel on Cart {
+extension CartViewModel on CartModel {
   int get totalItems {
     return entries.map((e) => e.value).sum;
   }
