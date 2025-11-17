@@ -24,7 +24,8 @@ class ProductsNotifier extends Notifier<List<Product>> {
     state = [];
   }
 
-  void addProduct(Product product) {
+  void addProduct(Map<String, Object?> json) {
+    final product = Product.fromJson(json);
     state = [...state, product];
   }
 

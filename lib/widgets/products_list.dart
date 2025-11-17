@@ -5,6 +5,8 @@ import "package:color_changer/widgets/alert_danger_widget.dart";
 import "package:color_changer/widgets/delete_button_widget.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:go_router/go_router.dart";
+import "package:reactive_forms/reactive_forms.dart";
 
 class ProductsList extends ConsumerStatefulWidget {
   const ProductsList({super.key});
@@ -103,7 +105,17 @@ class _ProductsListState extends ConsumerState<ProductsList> {
     );
   }
 
-  void addNewProduct() {}
+  Future<void> addNewProduct() async {
+    final json = await showDialog<Map<String, Object?>>(
+      context: context,
+      builder: (context) {
+        return const _AddProductDialog();
+      },
+    );
+    if (json == null) return;
+
+    ref.read(productsProvider.notifier).addProduct(json);
+  }
 
   void addToCart(Product product) {
     ref.read(cartProvider.notifier).addProduct(product);
@@ -135,5 +147,99 @@ class _ProductsListState extends ConsumerState<ProductsList> {
         behavior: SnackBarBehavior.floating,
       ),
     );
+  }
+}
+
+class _AddProductDialog extends StatefulWidget {
+  const _AddProductDialog();
+
+  @override
+  State<_AddProductDialog> createState() => _AddProductDialogState();
+}
+
+class _AddProductDialogState extends State<_AddProductDialog> {
+  late final FormGroup form;
+
+  @override
+  void initState() {
+    super.initState();
+    form = FormGroup({
+      "name": FormControl<String>(
+        validators: [
+          Validators.required,
+        ],
+      ),
+      "description": FormControl<String>(),
+      "price": FormControl<double>(
+        validators: [
+          Validators.number(
+            allowedDecimals: 2,
+            allowNegatives: false,
+          ),
+          Validators.min(0.01),
+          Validators.required,
+        ],
+      ),
+    });
+  }
+
+  @override
+  void dispose() {
+    form.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Dialog(
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Add New Product"),
+        ),
+        body: ReactiveForm(
+          formGroup: form,
+          child: Column(
+            children: [
+              ReactiveTextField<String>(
+                formControlName: "name",
+                decoration: InputDecoration(
+                  labelText: "Name",
+                  labelStyle: theme.textTheme.bodyLarge,
+                ),
+              ),
+              ReactiveTextField<String>(
+                formControlName: "description",
+                decoration: InputDecoration(
+                  labelText: "Description",
+                  labelStyle: theme.textTheme.bodyLarge,
+                ),
+              ),
+              ReactiveTextField<double>(
+                formControlName: "price",
+                decoration: InputDecoration(
+                  labelText: "Price",
+                  labelStyle: theme.textTheme.bodyLarge,
+                ),
+                keyboardType: TextInputType.number,
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton.icon(
+                onPressed: onSave,
+                icon: const Icon(Icons.save),
+                label: const Text("save"),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void onSave() {
+    if (form.invalid) return;
+
+    context.pop(form.value);
   }
 }
