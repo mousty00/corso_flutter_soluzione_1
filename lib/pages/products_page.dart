@@ -1,3 +1,4 @@
+import "package:color_changer/state/cart_controller.dart";
 import "package:color_changer/widgets/products_list.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
@@ -21,7 +22,7 @@ class _ProductsPageState extends State<ProductsPage> {
           Consumer(
             builder: (context, ref, child) {
               return Badge.count(
-                count: 0,
+                count: ref.watch(cartProvider).products.length,
                 child: IconButton(
                   onPressed: goToCart,
                   icon: const Icon(Icons.shopping_bag_rounded),
@@ -35,7 +36,7 @@ class _ProductsPageState extends State<ProductsPage> {
     );
   }
 
-  void goToCart() {
-    context.push("/cart");
+  Future<void> goToCart() async {
+    await context.push("/cart");
   }
 }
