@@ -1,3 +1,4 @@
+import "package:collection/collection.dart";
 import "package:color_changer/state/cart_controller.dart";
 import "package:color_changer/widgets/products_list.dart";
 import "package:flutter/material.dart";
@@ -19,7 +20,7 @@ class ProductsPage extends StatelessWidget {
               final cart = ref.watch(cartProvider);
 
               return Badge.count(
-                count: cart.products.length,
+                count: cart.entries.map((e) => e.value).sum,
                 child: IconButton(
                   onPressed: () async {
                     await context.push("/cart");

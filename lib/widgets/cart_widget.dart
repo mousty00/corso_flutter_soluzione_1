@@ -1,3 +1,4 @@
+import "package:color_changer/models/cart.dart";
 import "package:color_changer/models/product.dart";
 import "package:color_changer/router.dart";
 import "package:color_changer/state/cart_controller.dart";
@@ -22,14 +23,27 @@ class _CartState extends ConsumerState<CartWidget> {
       padding: const EdgeInsets.symmetric(vertical: 36, horizontal: 36),
       child: Column(
         children: [
-          Text(
-            "Cart",
-            style: theme.textTheme.headlineLarge,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            spacing: 40,
+            children: [
+              Text(
+                "Cart",
+                style: theme.textTheme.headlineLarge,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text("${cart.totalItems} items"),
+                  Text("Total: \$${cart.totalValue}"),
+                ],
+              ),
+            ],
           ),
           const SizedBox(
             height: 20,
           ),
-          if (cart.products.isEmpty)
+          if (cart.isEmpty)
             Column(
               children: [
                 const Text("No products yet."),
@@ -45,7 +59,7 @@ class _CartState extends ConsumerState<CartWidget> {
             Expanded(
               child: ListView(
                 children: [
-                  for (final product in cart.products)
+                  for (final entry in cart.entries)
                     Card(
                       margin: const EdgeInsets.symmetric(vertical: 16),
                       child: Padding(
@@ -54,19 +68,19 @@ class _CartState extends ConsumerState<CartWidget> {
                           spacing: 8,
                           children: [
                             Text(
-                              product.name,
+                              entry.displayProductAndAmount,
                               style: theme.textTheme.headlineSmall,
                             ),
                             Text(
-                              product.description,
+                              entry.key.description,
                               style: theme.textTheme.bodyMedium,
                             ),
                             Text(
-                              "${product.price}",
+                              entry.displayPriceAndTotal,
                               style: theme.textTheme.bodyMedium,
                             ),
                             DeleteButtonWidget(
-                              onPressed: () => deleteProductFromCart(product),
+                              onPressed: () => deleteProductFromCart(entry.key),
                             ),
                           ],
                         ),

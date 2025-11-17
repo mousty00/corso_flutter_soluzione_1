@@ -36,9 +36,9 @@ class _ProductsListState extends ConsumerState<ProductsList> {
                   textAlign: TextAlign.center,
                 ),
               ),
-              FloatingActionButton.small(
-                onPressed: () {},
-                child: const Icon(Icons.add),
+              IconButton(
+                onPressed: addNewProduct,
+                icon: const Icon(Icons.add),
               ),
             ],
           ),
@@ -102,6 +102,8 @@ class _ProductsListState extends ConsumerState<ProductsList> {
       ),
     );
   }
+
+  void addNewProduct() {}
 
   void addToCart(Product product) {
     ref.read(cartProvider.notifier).addProduct(product);

@@ -7,20 +7,25 @@ final cartProvider = NotifierProvider<CartNotifier, Cart>(CartNotifier.new);
 class CartNotifier extends Notifier<Cart> {
   @override
   Cart build() {
-    return Cart(products: []);
+    return {};
   }
 
   void addProduct(Product product) {
-    final updatedProducts = List<Product>.from(state.products)..add(product);
-    state = Cart(products: updatedProducts);
+    state.update(
+      product,
+      (value) => value + 1,
+      ifAbsent: () => 1,
+    );
+    ref.notifyListeners();
   }
 
   void removeProduct(Product product) {
-    final updatedProducts = List<Product>.from(state.products)..remove(product);
-    state = Cart(products: updatedProducts);
+    state.remove(product);
+    ref.notifyListeners();
   }
 
   void clearCart() {
-    state = Cart(products: []);
+    state.clear();
+    ref.notifyListeners();
   }
 }
