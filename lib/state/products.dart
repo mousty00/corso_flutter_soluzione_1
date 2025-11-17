@@ -1,11 +1,10 @@
 import "package:color_changer/models/product.dart";
-import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:riverpod_annotation/riverpod_annotation.dart";
 
-final productsProvider = NotifierProvider<ProductsNotifier, List<Product>>(
-  ProductsNotifier.new,
-);
+part "products.g.dart";
 
-class ProductsNotifier extends Notifier<List<Product>> {
+@riverpod
+class Products extends _$Products {
   @override
   List<Product> build() {
     return <Product>[

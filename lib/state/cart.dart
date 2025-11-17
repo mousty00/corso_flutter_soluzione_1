@@ -1,12 +1,13 @@
-import "package:color_changer/models/cart.dart";
+import "package:color_changer/models/cart_model.dart";
 import "package:color_changer/models/product.dart";
-import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:riverpod_annotation/riverpod_annotation.dart";
 
-final cartProvider = NotifierProvider<CartNotifier, Cart>(CartNotifier.new);
+part "cart.g.dart";
 
-class CartNotifier extends Notifier<Cart> {
+@riverpod
+class Cart extends _$Cart {
   @override
-  Cart build() {
+  CartModel build() {
     return {};
   }
 

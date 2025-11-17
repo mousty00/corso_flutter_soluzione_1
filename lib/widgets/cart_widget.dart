@@ -1,7 +1,7 @@
-import "package:color_changer/models/cart.dart";
+import "package:color_changer/models/cart_model.dart";
 import "package:color_changer/models/product.dart";
 import "package:color_changer/router.dart";
-import "package:color_changer/state/cart_controller.dart";
+import "package:color_changer/state/cart.dart";
 import "package:color_changer/widgets/alert_danger_widget.dart";
 import "package:color_changer/widgets/delete_button_widget.dart";
 import "package:flutter/material.dart";
