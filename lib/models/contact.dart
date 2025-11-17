@@ -1,10 +1,19 @@
 import "package:flutter/material.dart";
+import "package:json_annotation/json_annotation.dart";
 
+part "contact.g.dart";
+
+@JsonSerializable(createToJson: false)
 class Contact {
   Contact({
     required this.value,
     required this.type,
   });
+
+  factory Contact.fromJson(Map<String, Object?> json) {
+    return _$ContactFromJson(json);
+  }
+
   String value;
   ContactType type;
 
@@ -20,7 +29,8 @@ class Contact {
 
 enum ContactType {
   email,
-  phone;
+  phone
+  ;
 
   IconData get icon {
     return switch (this) {

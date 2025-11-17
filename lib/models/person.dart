@@ -1,5 +1,9 @@
 import "package:color_changer/models/contact.dart";
+import "package:json_annotation/json_annotation.dart";
 
+part "person.g.dart";
+
+@JsonSerializable(createToJson: false)
 class Person {
   Person({
     required this.firstName,
@@ -7,25 +11,8 @@ class Person {
     this.contacts = const [],
   });
 
-  factory Person.fromJson(
-    Map<String, Object?> json,
-  ) {
-    final contactsJson = json["contacts"] as List<Map<String, Object?>?>?;
-    return Person(
-      firstName: json["firstName"]! as String,
-      lastName: json["lastName"]! as String,
-      contacts:
-          contactsJson
-              ?.map((e) => e!)
-              .map(
-                (e) => Contact(
-                  value: e["value"]! as String,
-                  type: e["type"]! as ContactType,
-                ),
-              )
-              .toList() ??
-          [],
-    );
+  factory Person.fromJson(Map<String, Object?> json) {
+    return _$PersonFromJson(json);
   }
 
   String firstName;
