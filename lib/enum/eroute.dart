@@ -10,6 +10,8 @@ extension ERoute on RoutesTypeDef {
       CustomRoute(path: "/color-changer", label: "color changer"),
       CustomRoute(path: "/recipes", label: "recipe list"),
       CustomRoute(path: "/contacts", label: "contact list"),
+      CustomRoute(path: "/products", label: "products"),
+      CustomRoute(path: "/cart", label: "cart"),
     ];
   }
 }
