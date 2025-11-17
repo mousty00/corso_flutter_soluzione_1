@@ -1,3 +1,8 @@
+import "package:json_annotation/json_annotation.dart";
+
+part "product.g.dart";
+
+@JsonSerializable(createToJson: false)
 class Product {
   Product({
     required this.name,
@@ -6,15 +11,7 @@ class Product {
   }) : createdAt = DateTime.now();
 
   factory Product.fromJson(Map<String, Object?> json) {
-    final name = json["name"]! as String;
-    final price = json["price"]! as double;
-    final description = json["description"]! as String;
-
-    return Product(
-      name: name,
-      price: price,
-      description: description,
-    );
+    return _$ProductFromJson(json);
   }
 
   final String name;
