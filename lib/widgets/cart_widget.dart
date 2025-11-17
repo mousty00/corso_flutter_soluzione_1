@@ -85,17 +85,19 @@ class _CartState extends ConsumerState<CartWidget> {
   }
 
   Future<void> deleteProductFromCart(Product product) async {
-    final shouldDelete = await showDialog<bool>(
+    final result = await showDialog<bool>(
       context: context,
-      builder: (ctx) => const AlertDangerWidget(),
+      builder: (context) => const AlertDangerWidget(),
     );
+    final shouldDelete = result ?? false;
 
-    if (shouldDelete ?? false) {
-      ref.read(cartProvider.notifier).removeProduct(product);
+    if (!shouldDelete) return;
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("${product.name} removed from cart")),
-      );
-    }
+    ref.read(cartProvider.notifier).removeProduct(product);
+
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("${product.name} removed from cart")),
+    );
   }
 }

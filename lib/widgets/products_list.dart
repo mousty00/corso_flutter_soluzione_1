@@ -42,7 +42,6 @@ class _ProductsListState extends ConsumerState<ProductsList> {
               ),
             ],
           ),
-
           const SizedBox(height: 20),
           Expanded(
             child: ListView(
@@ -117,23 +116,22 @@ class _ProductsListState extends ConsumerState<ProductsList> {
   }
 
   Future<void> deleteProduct(Product product) async {
-    final shouldDelete = await showDialog<bool>(
+    final result = await showDialog<bool>(
       context: context,
-      builder: (ctx) => const AlertDangerWidget(),
+      builder: (context) => const AlertDangerWidget(),
     );
+    final shouldDelete = result ?? false;
 
-    if (shouldDelete ?? false) {
-      ref.read(productsProvider.notifier).removeProduct(product);
+    if (!shouldDelete) return;
+    ref.read(productsProvider.notifier).removeProduct(product);
 
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text("${product.name} removed!"),
-            duration: const Duration(seconds: 2),
-            behavior: SnackBarBehavior.floating,
-          ),
-        );
-      }
-    }
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text("${product.name} removed!"),
+        duration: const Duration(seconds: 2),
+        behavior: SnackBarBehavior.floating,
+      ),
+    );
   }
 }
