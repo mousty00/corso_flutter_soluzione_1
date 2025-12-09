@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=/Users/venir/.local/share/mise/installs/flutter/3.35.7-stable"
-export "FLUTTER_APPLICATION_PATH=/Users/venir/Documents/development/corso_flutter_soluzione_1"
+export "FLUTTER_ROOT=/home/moustapha/develop/flutter"
+export "FLUTTER_APPLICATION_PATH=/home/moustapha/mousty/projects/flutter/flutter_starter"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_TARGET=lib/main.dart"
 export "FLUTTER_BUILD_DIR=build"

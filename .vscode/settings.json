@@ -14,4 +14,5 @@
             "source.organizeImports": "explicit"
         }
     },
+    "cmake.sourceDirectory": "/home/moustapha/mousty/projects/flutter/flutter_starter/linux",
 }

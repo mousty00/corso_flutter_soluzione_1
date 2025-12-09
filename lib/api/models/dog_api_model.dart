@@ -7,13 +7,13 @@ part "dog_api_model.g.dart";
 @JsonSerializable()
 class DogApiModel with _$DogApiModel {
   const DogApiModel({
-    required this.messages,
+    required this.message,
   });
 
   factory DogApiModel.fromJson(Map<String, Object?> json) => _$DogApiModelFromJson(json);
 
   @override
-  final List<String> messages;
+  final List<String> message;
 
   Map<String, Object?> toJson() => _$DogApiModelToJson(this);
 }

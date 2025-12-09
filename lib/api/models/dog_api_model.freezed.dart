@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$DogApiModel {
 
- List<String> get messages;
+ List<String> get message;
 /// Create a copy of DogApiModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $DogApiModelCopyWith<DogApiModel> get copyWith => _$DogApiModelCopyWithImpl<DogA
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DogApiModel&&const DeepCollectionEquality().equals(other.messages, messages));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DogApiModel&&const DeepCollectionEquality().equals(other.message, message));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(messages));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(message));
 
 @override
 String toString() {
-  return 'DogApiModel(messages: $messages)';
+  return 'DogApiModel(message: $message)';
 }
 
 
@@ -46,7 +46,7 @@ abstract mixin class $DogApiModelCopyWith<$Res>  {
   factory $DogApiModelCopyWith(DogApiModel value, $Res Function(DogApiModel) _then) = _$DogApiModelCopyWithImpl;
 @useResult
 $Res call({
- List<String> messages
+ List<String> message
 });
 
 
@@ -63,9 +63,9 @@ class _$DogApiModelCopyWithImpl<$Res>
 
 /// Create a copy of DogApiModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? messages = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? message = null,}) {
   return _then(DogApiModel(
-messages: null == messages ? _self.messages : messages // ignore: cast_nullable_to_non_nullable
+message: null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
 as List<String>,
   ));
 }

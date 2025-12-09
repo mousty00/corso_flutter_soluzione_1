@@ -1,6 +1,6 @@
 import "package:color_changer/models/fbi_wanted_model.dart";
 import "package:color_changer/state/fbi_wanted_list.dart";
-import "package:color_changer/widgets/fbi_shimmer.dart";
+import "package:color_changer/widgets/image_shimmer.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 
@@ -31,7 +31,7 @@ class _FbiPAgeState extends ConsumerState<FbiPage> {
 
           switch (list) {
             case AsyncLoading():
-              return const FbiShimmer();
+              return const ImageShimmer();
             case AsyncData(:final value):
               final offset = index % fbiWantedListPageSize;
               final wanted = value[offset];
