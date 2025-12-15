@@ -1,6 +1,7 @@
 import "package:color_changer/pages/cart_page.dart";
 import "package:color_changer/pages/cat_page.dart";
 import "package:color_changer/pages/cats_page.dart";
+import "package:color_changer/pages/character_page.dart";
 import "package:color_changer/pages/color_changer_page.dart";
 import "package:color_changer/pages/contact_page.dart";
 import "package:color_changer/pages/dogs_page.dart";
@@ -10,6 +11,7 @@ import "package:color_changer/pages/jokes_page.dart";
 import "package:color_changer/pages/login_page.dart";
 import "package:color_changer/pages/products_page.dart";
 import "package:color_changer/pages/recipe_list_page.dart";
+import "package:color_changer/pages/rick_morty_page.dart";
 import "package:color_changer/pages/todo_list_page.dart";
 import "package:go_router/go_router.dart";
 
@@ -92,6 +94,19 @@ final router = GoRouter(
       path: "/fbi",
       builder: (context, state) {
         return const FbiPage();
+      },
+    ),
+    GoRoute(
+      path: "/characters",
+      builder: (context, state) {
+        return const CharactersPage();
+      },
+    ),
+    GoRoute(
+      path: "/characters/:id",
+      builder: (context, state) {
+        final id = state.pathParameters["id"];
+        return CharacterPage(id: int.parse(id!));
       },
     ),
   ],
